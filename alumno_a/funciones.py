@@ -12,14 +12,14 @@ def mostrar_menu():
     opcion = input("Elige opción: ")
     return opcion
     
-def ver_tareas(fichero):
+def ver_tareas():
     """Muestra todas las tareas numeradas."""
     try:
-        with open(fichero, "r", encoding="utf-8") as f:
+        with open("tareas.txt", "r", encoding="utf-8") as f:
             lineas = f.readlines()
 
         if not lineas:
-            print(Fore.GREEN + "No hay tareas todavía.")
+            print(Fore.GREEN + "No hay tareas todavía." + Style.RESET_ALL)
             return
 
         print("\n=== MIS TAREAS ===")
@@ -29,18 +29,18 @@ def ver_tareas(fichero):
             if estado == "0":
                 print(Fore.YELLOW + f"{numero}. [ ] {texto}" + Style.RESET_ALL)
             else:
-                print(Fore.GREEN + f"{numero}. [✓] {texto}")
+                print(Fore.GREEN + f"{numero}. [✓] {texto}" + Style.RESET_ALL)
             numero += 1
 
     except FileNotFoundError:
-        print(Fore.WHITE + "No hay tareas todavía.")
+        print(Fore.WHITE + "No hay tareas todavía." + Style.RESET_ALL)
     
     
-def añadir_tarea(fichero):
+def añadir_tarea():
     """Añade una nueva tarea al fichero."""
     tarea = input("Introduce la nueva tarea: ")
 
-    with open(fichero, "a", encoding="utf-8") as f:
+    with open("tareas.txt", "a", encoding="utf-8") as f:
         f.write(f"0|{tarea}\n")
 
     print(Fore.GREEN + "Tarea añadida correctamente." + Style.RESET_ALL)

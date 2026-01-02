@@ -2,30 +2,42 @@ from colorama import Fore, Style
 
 def marcar_completada():
     try:
-        with open("tareas.txt", "r") as f:
+        with open("tareas.txt", "r", encoding="utf-8") as f:
             tareas = f.readlines()
 
         if not tareas:
             print(Fore.YELLOW + "No hay tareas" + Style.RESET_ALL)
             return
 
-        i = 1
-        for tarea in tareas:
-            print(str(i) + ". " + tarea.strip())
-            i += 1
+        print("=== MIS TAREAS ===")
+        for i in range(len(tareas)):
+            print(f"{i+1}. {tareas[i].strip()}")
 
-        num = int(input("Numero de la tarea completada: "))
-        tareas[num - 1] = tareas[num - 1].strip() + " ✔\n"
+        num = input("Numero de la tarea completada: ")
 
-        with open("tareas.txt", "w") as f:
+        if not num.isdigit():
+            print(Fore.RED + "Debes introducir un número" + Style.RESET_ALL)
+            return
+
+        num = int(num) - 1
+
+        if num < 0 or num >= len(tareas):
+            print(Fore.RED + "Número fuera de rango" + Style.RESET_ALL)
+            return
+
+        if "✔" not in tareas[num]:
+            tareas[num] = tareas[num].strip() + " ✔\n"
+
+        with open("tareas.txt", "w", encoding="utf-8") as f:
             f.writelines(tareas)
 
         print(Fore.GREEN + "Tarea marcada como completada" + Style.RESET_ALL)
 
-    except:
+    except FileNotFoundError:
+        print(Fore.YELLOW + "No hay tareas todavía" + Style.RESET_ALL)
+
+    except Exception as e:
         print(Fore.RED + "Error al marcar la tarea" + Style.RESET_ALL)
-
-
 
 def eliminar_tarea():
     try:
