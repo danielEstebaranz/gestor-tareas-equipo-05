@@ -35,8 +35,13 @@ def ver_tareas(fichero):
     except FileNotFoundError:
         print(Fore.WHITE + "No hay tareas todavía.")
     
-
+    
 def añadir_tarea(fichero):
     """Añade una nueva tarea al fichero."""
-    # TODO: Implementar
+    tarea = input("Introduce la nueva tarea: ")
+
+    with open(fichero, "a", encoding="utf-8") as f:
+        f.write(f"0|{tarea}\n")
+
+    print(Fore.GREEN + "Tarea añadida correctamente." + Style.RESET_ALL)
     pass
