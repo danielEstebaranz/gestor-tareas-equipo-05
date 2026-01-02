@@ -1,6 +1,7 @@
 from colorama import Fore, Style
 
 def marcar_completada():
+
     try:
         with open("tareas.txt", "r") as f:
             tareas = f.readlines()
@@ -24,6 +25,7 @@ def marcar_completada():
         print(Fore.RED + "Error al marcar la tarea" + Style.RESET_ALL)
 
 
+
 def eliminar_tarea():
     try:
         with open("tareas.txt", "r") as f:
@@ -33,8 +35,10 @@ def eliminar_tarea():
             print(Fore.YELLOW + "No existen tareas" + Style.RESET_ALL)
             return
 
-        for i, tarea in enumerate(tareas, 1):
-            print(f"{i}. {tarea.strip()}")
+        i = 1
+        for tarea in tareas:
+            print(str(i) + ". " + tarea.strip())
+            i += 1
 
         num = int(input("Numero de la tarea para eliminar: "))
         tareas.pop(num - 1)
@@ -43,9 +47,12 @@ def eliminar_tarea():
             f.writelines(tareas)
 
         print(Fore.GREEN + "Tarea eliminada" + Style.RESET_ALL)
+
     except:
         print(Fore.RED + "Error al eliminar la tarea" + Style.RESET_ALL)
 
 
 def despedida():
     print(Fore.BLUE + "Saliendo ...." + Style.RESET_ALL)
+
+
