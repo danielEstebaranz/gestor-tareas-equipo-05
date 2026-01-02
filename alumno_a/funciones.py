@@ -11,11 +11,30 @@ def mostrar_menu():
 
     opcion = input("Elige opción: ")
     return opcion
-
+    
 def ver_tareas(fichero):
     """Muestra todas las tareas numeradas."""
-    # TODO: Implementar
-    pass
+    try:
+        with open(fichero, "r", encoding="utf-8") as f:
+            lineas = f.readlines()
+
+        if not lineas:
+            print(Fore.GREEN + "No hay tareas todavía.")
+            return
+
+        print("\n=== MIS TAREAS ===")
+        numero = 1
+        for linea in lineas:
+            estado, texto = linea.strip().split("|")
+            if estado == "0":
+                print(Fore.YELLOW + f"{numero}. [ ] {texto}" + Style.RESET_ALL)
+            else:
+                print(Fore.GREEN + f"{numero}. [✓] {texto}")
+            numero += 1
+
+    except FileNotFoundError:
+        print(Fore.WHITE + "No hay tareas todavía.")
+    
 
 def añadir_tarea(fichero):
     """Añade una nueva tarea al fichero."""
